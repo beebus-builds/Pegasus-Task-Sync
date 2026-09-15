@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pegasus Free Logger Options</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:600px;margin:40px auto;padding:0 20px}
+label{font-weight:600;display:block;margin-top:12px}
+input{width:100%;box-sizing:border-box;padding:8px;border:1px solid #d1d5db;border-radius:8px;margin-top:6px}
+button{background:#111827;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;margin-top:12px}
+#status{margin-top:12px;color:#374151}
+</style>
+</head>
+<body>
+<h2>Pegasus Free Logger</h2>
+<label>Apps Script Web App URL</label>
+<input id="url" placeholder="https://script.google.com/macros/s/.../exec">
+<button id="save">Save</button>
+<div id="status"></div>
+<script>
+const DEFAULT = "https://script.google.com/macros/s/AKfycbxO7rt2dWNKW2i3Z9zSRdGc8VpJViTTiqnMvGxGKoteZNp-OzHYVf-JKIgX__IqXzh34w/exec";
+const status=document.getElementById('status');
+chrome.storage.sync.get(['appsScriptUrl'],({appsScriptUrl})=>{
+  document.getElementById('url').value = appsScriptUrl || DEFAULT;
+});
+document.getElementById('save').onclick = async ()=>{
+  const v=document.getElementById('url').value.trim()||DEFAULT;
+  await chrome.storage.sync.set({appsScriptUrl:v});
+  status.textContent='Saved ✓';
+};
+</script>
+</body>
+</html>

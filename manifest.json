@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Pegasus Task Sync",
+  "version": "1.0.0",
+  "description": "Auto-sync Pegasus My Tasks to Google Sheets with Free/Busy logging.",
+  "permissions": ["storage", "activeTab", "tabs"],
+  "host_permissions": [
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "action": {
+    "default_title": "Pegasus Task Sync"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://pegasus.pairlab.ai/xapp/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
